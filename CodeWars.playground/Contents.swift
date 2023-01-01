@@ -1,30 +1,13 @@
 import Foundation
 
-func nextBigger(num: Int) -> Int? {
-    
-    var arrayOfNum = String(num).compactMap { String($0) }
-    
-    if arrayOfNum.count == 1 {
-        return nil
+func findOutlier(_ array: [Int]) -> Int {
+    let odd = array.filter { $0 % 2 == 0 }
+    if odd.count == 1 {
+        return odd[0]
+    } else {
+        return array.filter { $0 % 2 != 0}[0]
     }
-    
-    var array = [String]()
-    
-    array.append(arrayOfNum.removeLast())
-    
-    while arrayOfNum.count != 0 {
-        
-        array.append(arrayOfNum.removeLast())
-        
-        if array.last! < array[array.count - 2] {
-            let removeNum = array.firstIndex(where: { $0 > array.last! })!
-            arrayOfNum.append(array.remove(at: removeNum))
-            if Int(arrayOfNum.joined() + array.sorted(by: <).joined()) == num {
-                return nil
-            }
-            return Int(arrayOfNum.joined() + array.sorted(by: <).joined())
-        }
-    }
-   
-  return nil
 }
+
+findOutlier([8, 2, 4, 4, 7])
+
